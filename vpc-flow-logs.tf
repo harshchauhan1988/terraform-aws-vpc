@@ -2,7 +2,7 @@ data "aws_caller_identity" "current" {}
 locals {
   # Only create flow log if user selected to create a VPC as well
   enable_flow_log = var.create_vpc && var.enable_flow_log
-  account_id      = data.aws_caller_identity.current.account_id
+  #account_id      = data.aws_caller_identity.current.account_id
 
   create_flow_log_cloudwatch_iam_role  = local.enable_flow_log && var.flow_log_destination_type != "s3" && var.create_flow_log_cloudwatch_iam_role
   create_flow_log_cloudwatch_log_group = local.enable_flow_log && var.flow_log_destination_type != "s3" && var.create_flow_log_cloudwatch_log_group
@@ -59,7 +59,7 @@ resource "aws_iam_role" "vpc_flow_log_cloudwatch" {
   name_prefix          = "vpc-flow-log-role-"
   assume_role_policy   = data.aws_iam_policy_document.flow_log_cloudwatch_assume_role[0].json
   #permissions_boundary = var.vpc_flow_log_permissions_boundary
-  permissions_boundary = "arn:aws:iam::${local.account_id}:policy/PowerUserPermissionsBoundaryPolicy"
+  permissions_boundary = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:policy/PowerUserPermissionsBoundaryPolicy"
 
   tags = merge(var.tags, var.vpc_flow_log_tags)
 }
