@@ -4,7 +4,7 @@ provider "aws" {
 
 locals {
   name   = "complete-example"
-  region = "us-west=2"
+  region = "us-west-2"
   tags = {
     Owner       = "user"
     Environment = "staging"
