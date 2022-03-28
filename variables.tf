@@ -729,6 +729,11 @@ variable "public_dedicated_network_acl" {
   type        = bool
   default     = false
 }
+variable "region" {
+  description = "AWS region input for deployment"
+  type        = string
+  default     = "us-west-2"
+}
 
 variable "private_dedicated_network_acl" {
   description = "Whether to use dedicated network ACL (not default) and custom rules for private subnets"

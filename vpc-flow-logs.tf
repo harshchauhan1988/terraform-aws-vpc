@@ -1,3 +1,4 @@
+data "aws_caller_identity" "current" {}
 locals {
   # Only create flow log if user selected to create a VPC as well
   enable_flow_log = var.create_vpc && var.enable_flow_log
